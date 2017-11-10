@@ -3,9 +3,18 @@ var gulp_inject = require('gulp-inject');
 var config = require('./config');
 
 gulp.task('inject', function(){
+    console.log(config.appStylePath + '/css/vendor.css');
     return gulp.src(config.appRootPath + '/dev.html')
         .pipe(gulp_inject(gulp.src([
-            config.appStylePath + '/css/*.css'
+            config.appStylePath + '/css/vendor.css'
+        ], {
+            read: false
+        }), {
+            starttag: '<!-- inject:vendor:{{ext}} -->',
+            addRootSlash: false
+        }))
+        .pipe(gulp_inject(gulp.src([
+            config.appStylePath + '/css/style.css'
         ], {
             read: false
         }), {
@@ -13,7 +22,7 @@ gulp.task('inject', function(){
             addRootSlash: false
         }))
         .pipe(gulp_inject(gulp.src([
-            config.appVendorScriptPath + '/vendor.js'
+            config.appScriptPath + '/vendor.js'
         ], {
             read: false
         }), {

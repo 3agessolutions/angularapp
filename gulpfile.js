@@ -1,7 +1,7 @@
 var gulp = require('gulp');
 var gulp_sass = require('gulp-sass');
 var gulp_clean = require('gulp-clean');
-var gulp_useref = require('gulp-useref');
+var gulp_concat = require('gulp-concat');
 var gulp_uglify = require('gulp-uglify');
 var gulp_inject = require('gulp-inject');
 var gulp_util = require('gulp-util');
@@ -17,46 +17,55 @@ var requireDir = require('require-dir');
 requireDir(config.appRootPath + 'gulp');
 
 gulp.task('clean', function () {
-    // return gulp.src([
-    //   ...
-    // ]).pipe(gulp_clean());
+    return gulp.src([
+      config.appStylePath + '/css',
+      config.appScriptPath
+    ]).pipe(gulp_clean());
 });
 
 gulp.task('serve', function () {
-    runSequence('css', 'js', 'inject'); 
+    runSequence('clean', 'css', 'js');
 });
 
 gulp.task('css', function () {
-    return gulp.src(config.appStylePath + '/sass/*.scss')
+    runSequence('app-css', 'vendor-css', 'inject');
+});
+
+gulp.task('vendor-css', function () {
+    return gulp.src(mainBowerFiles(['**/*.css']))
+        .pipe(gulp_concat('vendor.css'))
         .pipe(gulp_sass().on('error', gulp_sass.logError))
         .pipe(gulp.dest(config.appStylePath + '/css'));
 });
 
-gulp.task('js', function () {
-    runSequence('vendor-js', 'app-js');     
+gulp.task('app-css', function () {
+    return gulp.src(config.appStylePath + '/sass/*.scss')
+        .pipe(gulp_concat('style.css'))
+        .pipe(gulp_sass().on('error', gulp_sass.logError))
+        .pipe(gulp.dest(config.appStylePath + '/css'));
 });
 
-gulp.task('vendor-js', function () {
-    return gulp.src(mainBowerFiles())
-        .pipe(gulp_useref())
-        .pipe(gulp_uglify())
-        .on('error', function (err) { gulp_util.log(gulp_util.colors.red('[Error]'), err.toString()); })
-        .pipe(gulp.dest(config.appVendorScriptPath));
+
+gulp.task('js', function () {
+    runSequence('app-js', 'vendor-js', 'inject');
 });
 
 gulp.task('app-js', function () {
     return gulp.src([
-        config.appSrcPath + '/app/**/*.module.js',
-        config.appSrcPath + '/app/**/*.js',
-        '!' + config.appVendorScriptPath + '/*.js', 
-        '!' + config.appScriptPath + '/*.js'
+        config.appSrcPath + '/**/*.module.js',
+        config.appSrcPath + '/**/*.js'
     ])
-    .pipe(sourcemaps.init())
-    .pipe(gulp_useref())
-    .pipe(ngAnnotate())
-    .pipe(gulp_uglify())
-    .on('error', function (err) { gulp_util.log(gulp_util.colors.red('[Error]'), err.toString()); })    
-    .pipe(sourcemaps.write('maps'))
-    .pipe(gulp.dest(config.appScriptPath));
+        .pipe(gulp_concat('app.js'))
+        .pipe(ngAnnotate())
+        .pipe(gulp_uglify())
+        .on('error', function (err) { gulp_util.log(gulp_util.colors.red('[Error]'), err.toString()); })
+        .pipe(gulp.dest(config.appScriptPath));
 });
 
+gulp.task('vendor-js', function () {
+    return gulp.src(mainBowerFiles(['**/*.js']))
+        .pipe(gulp_concat('vendor.js'))
+        .pipe(gulp_uglify())
+        .on('error', function (err) { gulp_util.log(gulp_util.colors.red('[Error]'), err.toString()); })
+        .pipe(gulp.dest(config.appScriptPath));
+});
