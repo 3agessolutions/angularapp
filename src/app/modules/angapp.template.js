@@ -1,0 +1,1 @@
+angular.module('angapp').run(['$templateCache', function($templateCache) {$templateCache.put('app/layouts/home/views/home.html','<div>welcome</div>');}]);

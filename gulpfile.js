@@ -10,6 +10,7 @@ var runSequence = require('run-sequence');
 var mainBowerFiles = require('main-bower-files');
 var ngAnnotate = require('gulp-ng-annotate');
 var sourcemaps = require('gulp-sourcemaps');
+var templateCache = require('gulp-angular-templatecache');
 
 
 var requireDir = require('require-dir');
@@ -24,7 +25,7 @@ gulp.task('clean', function () {
 });
 
 gulp.task('serve', function () {
-    runSequence('clean', 'css', 'js');
+    runSequence('clean', 'cache', 'css',  'js');
 });
 
 gulp.task('css', function () {
@@ -69,3 +70,11 @@ gulp.task('vendor-js', function () {
         .on('error', function (err) { gulp_util.log(gulp_util.colors.red('[Error]'), err.toString()); })
         .pipe(gulp.dest(config.appScriptPath));
 });
+
+gulp.task('cache', function () {
+    return gulp.src(config.appSrcPath + '/**/*.html')
+      .pipe(templateCache('angapp.template.js', {
+        module: 'angapp'
+      }))
+      .pipe(gulp.dest(config.appSrcPath + '/app/modules'));
+  });

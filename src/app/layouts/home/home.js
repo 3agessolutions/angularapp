@@ -14,7 +14,8 @@
         //
         var directive = {
             link: link,
-            restrict: 'EA'
+            restrict: 'EA',
+            templateUrl: 'app/layouts/home/views/home.html'
         };
         return directive;
 
