@@ -5,9 +5,9 @@
         .module ('angapp')
         .directive ('homeDirective', homeDirective);
 
-    homeDirective.$inject = ['$window'];
+    homeDirective.$inject = [];
 
-    function homeDirective($window) {
+    function homeDirective() {
         // Usage:
         //     <directive></directive>
         // Creates:

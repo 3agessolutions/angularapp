@@ -3,11 +3,11 @@
 
     angular
         .module('angapp')
-        .config(configConfig)
+        .config(angappConfig)
 
-    configConfig.$inject = [];
+    angappConfig.$inject = [];
 
-    function configConfig() {
+    function angappConfig() {
 
     }
 

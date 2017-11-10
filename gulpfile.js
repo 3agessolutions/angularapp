@@ -40,7 +40,10 @@ gulp.task('vendor-css', function () {
 });
 
 gulp.task('app-css', function () {
-    return gulp.src(config.appStylePath + '/sass/*.scss')
+    return gulp.src([
+        config.appStylePath + '/sass/*.scss',
+        config.appSrcPath + '/**/*.scss'
+    ])
         .pipe(gulp_concat('style.css'))
         .pipe(gulp_sass().on('error', gulp_sass.logError))
         .pipe(gulp.dest(config.appStylePath + '/css'));
