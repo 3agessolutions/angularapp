@@ -5,23 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Angular</title>
-
-    <!-- inject:bower:css -->
+    <!-- inject:vendor:css -->
+    <link rel="stylesheet" href="src/app/styles/css/vendor.css">
     <!-- endinject -->
 
     <!-- inject:style:css -->
-    <!-- all styles will be injected here -->
+    <link rel="stylesheet" href="src/app/styles/css/style.css">
     <!-- endinject -->
 </head>
 <body>
-    
 
+    <angapp-sidebar></angapp-sidebar>
+    <div ui-view=""></div>
+    
     <!-- inject:vendor:js -->
-    <!-- vendor.js will be injected here -->
+    <script src="src/app/js/vendor.js"></script>
     <!-- endinject -->
 
     <!-- inject:script:js -->
-    <!-- other app js will be injected here -->
+    <script src="src/app/js/app.js"></script>
     <!-- endinject -->
 </body>
 </html>

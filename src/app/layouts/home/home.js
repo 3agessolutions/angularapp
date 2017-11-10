@@ -3,24 +3,28 @@
 
     angular
         .module ('angapp')
-        .directive ('homeDirective', homeDirective);
+        .component ('angappHome', angappHome());
 
-    homeDirective.$inject = [];
 
-    function homeDirective() {
-        // Usage:
-        //     <directive></directive>
-        // Creates:
-        //
-        var directive = {
-            link: link,
-            restrict: 'EA',
-            templateUrl: 'app/layouts/home/views/home.html'
-        };
-        return directive;
-
-        function link(scope, element, attrs) {
+    function angappHome() {
+        return {
+            bindings: {},
+            controller: HomeController,
+            controllerAs: 'home',
+            templateUrl: ['$element', '$attrs', function ($element, $attrs) {
+                return 'app/layouts/home/views/home.html';
+            }]
         }
     }
 
-})();
+    /** @ngInject */
+    function HomeController(){
+        var vm = this;
+        
+        init();
+
+        function init(){
+
+        }
+    }
+} ());

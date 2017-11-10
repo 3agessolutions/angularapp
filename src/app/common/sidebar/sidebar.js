@@ -9,7 +9,7 @@
     function angappSidebar() {
         return {
             bindings: {},
-            controller: componentController,
+            controller: SidebarController,
             controllerAs: 'sidebar',
             templateUrl: ['$element', '$attrs', function ($element, $attrs) {
                 return 'app/common/sidebar/views/sidebar.html';
@@ -17,13 +17,14 @@
         }
     }
 
-    function componentController(){
+    /** @ngInject */
+    function SidebarController($state, angappStateConstants){
         var vm = this;
         
         init();
 
         function init(){
-
+            $state.go(angappStateConstants.home);            
         }
     }
 } ());

@@ -1,7 +1,11 @@
 (function () {
     'use strict';
 
-    angular.module('angapp', ['ui.router']);
+    angular.element(document).ready(function () {
+        angular.bootstrap(document, ['angapp']);
+    });
+
+    angular.module('angapp', ['ui.router', 'ngMaterial']);
 
     
 })();

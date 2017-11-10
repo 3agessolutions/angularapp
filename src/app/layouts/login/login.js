@@ -3,15 +3,12 @@
 
     angular
         .module ('angapp')
-        .directive ('loginDirective', loginDirective);
+        .directive ('angappLogin', angappLogin);
 
-    loginDirective.$inject = ['$window'];
+    angappLogin.$inject = ['$window'];
 
-    function loginDirective($window) {
-        // Usage:
-        //     <directive></directive>
-        // Creates:
-        //
+    function angappLogin($window) {
+        
         var directive = {
             link: link,
             restrict: 'EA'

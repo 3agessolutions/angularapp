@@ -28,6 +28,11 @@ gulp.task('serve', function () {
     runSequence('clean', 'cache', 'css',  'js');
 });
 
+gulp.task('serve-dev', function(){
+    config.development = true;
+    runSequence('clean', 'cache', 'css',  'js-dev');
+});
+
 gulp.task('css', function () {
     runSequence('app-css', 'vendor-css', 'inject');
 });
@@ -49,9 +54,12 @@ gulp.task('app-css', function () {
         .pipe(gulp.dest(config.appStylePath + '/css'));
 });
 
-
 gulp.task('js', function () {
     runSequence('app-js', 'vendor-js', 'inject');
+});
+
+gulp.task('js-dev', function () {
+    runSequence('vendor-js', 'inject');
 });
 
 gulp.task('app-js', function () {
@@ -80,4 +88,5 @@ gulp.task('cache', function () {
         module: 'angapp'
       }))
       .pipe(gulp.dest(config.appSrcPath + '/app/modules'));
+    return;
   });

@@ -1,2 +1,2 @@
-angular.module('angapp').run(['$templateCache', function($templateCache) {$templateCache.put('app/layouts/home/views/home.html','<div>welcome</div>');
-$templateCache.put('app/common/sidebar/views/sidebar.html','<div class="angapp sidebar">sidebar</div>');}]);
+angular.module('angapp').run(['$templateCache', function($templateCache) {$templateCache.put('app/common/sidebar/views/sidebar.html','<div class="angapp sidebar">\r\n    sidebar\r\n</div>');
+$templateCache.put('app/layouts/home/views/home.html','<div class="angapp home" layout="row">\r\n    <angapp-sidebar flex="30"></angapp-sidebar>\r\n    <div flex="70">home</div>\r\n</div>');}]);

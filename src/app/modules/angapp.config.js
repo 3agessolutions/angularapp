@@ -5,10 +5,10 @@
         .module('angapp')
         .config(angappConfig)
 
-    angappConfig.$inject = [];
-
-    function angappConfig() {
-
+    /** @ngInject */
+    function angappConfig($compileProvider, $locationProvider){
+        $compileProvider.preAssignBindingsEnabled(true);
+        $locationProvider.hashPrefix('');
     }
 
 }());

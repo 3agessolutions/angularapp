@@ -13,16 +13,24 @@
     <link rel="stylesheet" href="src/app/styles/css/style.css">
     <!-- endinject -->
 </head>
-<body ng-app="angapp">
-    
-    <angapp-sidebar></angapp-sidebar>
+<body>
 
+    <div ui-view="" layout="column" flex></div>
+    
     <!-- inject:vendor:js -->
     <script src="src/app/js/vendor.js"></script>
     <!-- endinject -->
 
     <!-- inject:script:js -->
-    <script src="src/app/js/app.js"></script>
+    <script src="src/app/modules/angapp.module.js"></script>
+    <script src="src/app/modules/angapp.config.js"></script>
+    <script src="src/app/modules/angapp.run.js"></script>
+    <script src="src/app/modules/angapp.state.constants.js"></script>
+    <script src="src/app/modules/angapp.template.js"></script>
+    <script src="src/app/layouts/home/home.js"></script>
+    <script src="src/app/layouts/home/home.route.js"></script>
+    <script src="src/app/layouts/login/login.js"></script>
+    <script src="src/app/common/sidebar/sidebar.js"></script>
     <!-- endinject -->
 </body>
 </html>
